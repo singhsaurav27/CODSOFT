@@ -157,7 +157,7 @@ int main()
 
     if (value == 'x' && tie == false)
     {
-        cout << "Congartulations! " << playerB << " You Win" << endl;
+        cout << "Congratulations! " << playerB << " You Win" << endl;
     }
     else if (value == '0' && tie == false)
     {
