@@ -1,0 +1,172 @@
+// Build a simple console-based Tic-Tac-Toe game that allows two players to play against each other
+
+
+#include <iostream>
+using namespace std;
+
+char elements[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}}; 
+int row, column;
+char value = 'x';
+bool tie = false;
+
+void functionStructure()
+{
+    cout << "     |       |       " << endl;
+    cout << elements[0][0] << "    |   " << elements[0][1] << "   |   " << elements[0][2] << endl;
+    cout << "_____|_______|_______" << endl;
+    cout << "     |       |       " << endl;
+    cout << elements[1][0] << "    |   " << elements[1][1] << "   |   " << elements[1][2] << endl;
+    cout << "_____|_______|_______" << endl;
+    cout << "     |       |       " << endl;
+    cout << elements[2][0] << "    |   " << elements[2][1] << "   |   " << elements[2][2] << endl;
+    cout << "     |       |       " << endl;
+}
+
+void functionAssigningValues()
+{
+
+    int digit;
+    string playerA, playerB;
+
+    if (value == 'x')
+    {
+        cout << " Please enter your place" << playerA << endl;
+        cin >> digit;
+    }
+
+    if (value == '0')
+    {
+        cout << " Please enter your place" << playerB << endl;
+        cin >> digit;
+    }
+
+    if (digit == 1)
+    {
+        row = 0;
+        column = 0;
+    }
+    if (digit == 2)
+    {
+        row = 0;
+        column = 1;
+    }
+    if (digit == 3)
+    {
+        row = 0;
+        column = 2;
+    }
+    if (digit == 4)
+    {
+        row = 1;
+        column = 0;
+    }
+    if (digit == 5)
+    {
+        row = 1;
+        column = 1;
+    }
+    if (digit == 6)
+    {
+        row = 1;
+        column = 2;
+    }
+    if (digit == 7)
+    {
+        row = 2;
+        column = 0;
+    }
+    if (digit == 8)
+    {
+        row = 2;
+        column = 1;
+    }
+    if (digit == 9)
+    {
+        row = 2;
+        column = 2;
+    }
+    else if (digit < 1 || digit > 9)
+    {
+        cout << "Invalid value!\nEnter again" << endl;
+    }
+
+    if (value == 'x' && elements[row][column] != 'x' && elements[row][column] != '0')
+    {
+        elements[row][column] = 'x';
+        value = '0';
+    }
+    else if (value == '0' && elements[row][column] != 'x' && elements[row][column] != '0')
+    {
+        elements[row][column] = '0';
+        value = 'x';
+    }
+    else
+    {
+        cout << "All spaces are filled." << endl;
+        functionAssigningValues();
+    }
+    functionStructure();
+}
+
+bool functionResult()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        if (elements[i][0] == elements[i][1] && elements[i][0] == elements[i][2] || elements[i][0] == elements[0][1] && elements[1][i] == elements[2][i])
+        {
+            return true;
+        }
+        if (elements[0][0] == elements[1][1] && elements[1][1] == elements[2][2] || elements[0][2] == elements[1][1] && elements[1][1] == elements[2][0])
+        {
+            return true;
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (elements[i][j] != 'x' && elements[i][j] != '0')
+                {
+                    return false;
+                }
+            }
+        }
+        tie = true;
+    }
+    return false;
+}
+
+int main()
+{
+    string playerA, playerB;
+    cout << "Hello user! Welcome to the game : TIC-TAC-TOE!\nThis is two player game.\nEnter the Players name and start playing." << endl;
+    cout << "Enter the name of 1st Player : " << endl;
+    getline(cin, playerA);
+    cout << "Enter the name of 2nd Player : " << endl;
+    getline(cin, playerB);
+
+    cout << "Start Playing!\nFirst chance : " << playerA << endl;
+    cout << "Second Chance : " << playerB << endl;
+
+    while (!functionResult())
+    {
+        functionStructure();
+        functionAssigningValues();
+        functionResult();
+    }
+
+    if (value == 'x' && tie == false)
+    {
+        cout << "Congartulations! " << playerB << " You Win" << endl;
+    }
+    else if (value == '0' && tie == false)
+    {
+        cout << "Congartulations! " << playerA << " You Win" << endl;
+    }
+    else
+    {
+        cout << "Game Drawn!\nPlay again!";
+    }
+
+    return 0;
+}
